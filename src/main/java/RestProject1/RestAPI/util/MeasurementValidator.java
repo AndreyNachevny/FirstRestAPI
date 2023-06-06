@@ -20,7 +20,7 @@ public class MeasurementValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return MeasurementDTO.class.equals(clazz);
+        return Measurement.class.equals(clazz);
     }
 
     @Override

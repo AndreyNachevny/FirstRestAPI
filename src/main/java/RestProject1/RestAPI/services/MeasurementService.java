@@ -1,15 +1,12 @@
 package RestProject1.RestAPI.services;
 
 import RestProject1.RestAPI.models.Measurement;
-import RestProject1.RestAPI.models.Sensor;
 import RestProject1.RestAPI.repositories.MeasurementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,16 +34,13 @@ public class MeasurementService {
     @Transactional
     public void add(Measurement measurement){
 
-        Sensor sensor = sensorService.findByName(measurement.getSensor().getName()).get();
-        measurement.setSensor(sensor);
-        measurement.setNameSensor(sensor.getName());
-        measurement.setCreatedAt(LocalDateTime.now());
+        enrichMeasurement(measurement);
 
-        if(sensor.getMeasurements()==null){
-            sensor.setMeasurements(new ArrayList<>(Collections.singletonList(measurement)));
-        } else {
-            sensor.getMeasurements().add(measurement);
-        }
         measurementRepository.save(measurement);
+    }
+    @Transactional
+    public void enrichMeasurement(Measurement measurement){
+        measurement.setSensor(sensorService.findByName(measurement.getSensor().getName()).get());
+        measurement.setCreatedAt(LocalDateTime.now());
     }
 }

@@ -1,9 +1,10 @@
 package RestProject1.RestAPI.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
 
 import java.time.LocalDateTime;
 
@@ -14,61 +15,57 @@ public class Measurement {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "value")
-    private float value;
+    @NotNull
+    @Min(-100)
+    @Max(100)
+    private Double value;
 
     @Column(name = "raining")
-    private boolean raining;
+    @NotNull
+    private Boolean raining;
 
-    @Column(name = "name_sensor")
-    private String nameSensor;
-
-    @Column(name = "created_at")
+    @Column(name = "save_at")
+    @NotNull
     private LocalDateTime createdAt;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_sensor", referencedColumnName = "id")
+    @JoinColumn(name = "name_sensor", referencedColumnName = "name")
     private Sensor sensor;
+
 
     public Measurement(){
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public float getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public boolean isRaining() {
+    public Boolean getRaining() {
         return raining;
     }
 
-    public void setRaining(boolean raining) {
+    public void setRaining(Boolean raining) {
         this.raining = raining;
     }
 
-    public String getNameSensor() {
-        return nameSensor;
-    }
-
-    public void setNameSensor(String nameSensor) {
-        this.nameSensor = nameSensor;
-    }
-
-    public LocalDateTime getCreateAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
@@ -83,5 +80,4 @@ public class Measurement {
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
-
 }

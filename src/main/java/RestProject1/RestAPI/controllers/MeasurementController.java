@@ -1,6 +1,7 @@
 package RestProject1.RestAPI.controllers;
 
 import RestProject1.RestAPI.dto.MeasurementDTO;
+import RestProject1.RestAPI.dto.MeasurementsResponse;
 import RestProject1.RestAPI.models.Measurement;
 import RestProject1.RestAPI.services.MeasurementService;
 import RestProject1.RestAPI.util.ErrorResponse;
@@ -35,14 +36,14 @@ public class MeasurementController {
     }
 
     @GetMapping
-    public List<MeasurementDTO> getAllMeasurements(){
-        return measurementService.all().stream()
+    public MeasurementsResponse getAllMeasurements(){
+        return new MeasurementsResponse(measurementService.all().stream()
                 .map(this::convertToMeasurementDTO)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("rainyDaysCount")
-    public int getValueRainyDays(){
+    public Integer getValueRainyDays(){
         return measurementService.getAllRainingDays();
     }
 

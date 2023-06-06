@@ -4,39 +4,33 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-import java.util.List;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "sensor")
-public class Sensor {
+public class Sensor  implements Serializable {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     @NotEmpty
     @Size(min = 3, max = 30, message = "Size should be between 3 and 30 characters")
     private String name;
 
-    @OneToMany(mappedBy = "sensor")
-    private List<Measurement> measurements;
-
 
     public Sensor(){
 
     }
-    public Sensor(String name) {
-        this.name = name;
-    }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,14 +40,6 @@ public class Sensor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Measurement> getMeasurements() {
-        return measurements;
-    }
-
-    public void setMeasurements(List<Measurement> measurements) {
-        this.measurements = measurements;
     }
 
     @Override

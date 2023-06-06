@@ -20,7 +20,7 @@ public class SensorValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return SensorDTO.class.equals(clazz);
+        return Sensor.class.equals(clazz);
     }
 
     @Override

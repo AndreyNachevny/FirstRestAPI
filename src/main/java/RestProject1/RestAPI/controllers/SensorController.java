@@ -24,7 +24,6 @@ public class SensorController {
 
     private final SensorService sensorService;
     private final ModelMapper modelMapper;
-
     private final SensorValidator sensorValidator;
 
     @Autowired

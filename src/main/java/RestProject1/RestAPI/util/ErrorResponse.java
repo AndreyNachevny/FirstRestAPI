@@ -8,7 +8,6 @@ public class ErrorResponse {
 
     public ErrorResponse(){}
 
-
     public String getMessage() {
         return message;
     }
